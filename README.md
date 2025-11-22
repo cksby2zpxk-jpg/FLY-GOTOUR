@@ -1,1 +1,1 @@
-https://github.com/cksby2zpxk-jpg/FLY-GOTOUR
+fly-gotour.github.io
