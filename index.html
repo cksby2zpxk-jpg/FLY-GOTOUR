@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Туры — Fly&GO Tour</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 600px;
+      width: 90%;
+    }
+    .close {
+      cursor: pointer;
+      padding: 6px 12px;
+      background:#eee;
+      border:none;
+      border-radius:8px;
+      margin-left:10px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo">Fly&GO Tour</div>
+  <nav>
+    <a href="index.html">Туры</a>
+    <a href="about.html">О нас</a>
+    <a href="contact.html">Контакты</a>
+  </nav>
+</header>
+
+<div class="container">
+  <h1>Доступные туры</h1>
+  <div class="grid" id="toursGrid"></div>
+</div>
+
+<!-- Модальное окно -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <h2 id="modalTitle"></h2>
+    <p id="modalDesc"></p>
+    <p id="modalPrice"></p>
+    <button class="close" id="closeModal">Закрыть</button>
+  </div>
+</div>
+
+<script>
+const tours = [
+  {
+    title: 'Алаколь — 2 дня',
+    img: 'https://images.unsplash.com/photo-1592194996308-cf1a87f3d77d?auto=format&fit=crop&w=1200&q=80',
+    desc: 'Прекрасный отдых на озере Алаколь, проживание в пансионате 4*, питание включено, купание и прогулки на лодке.',
+    price: '50 000 ₸'
+  },
+  {
+    title: 'Боровое (Бурабай) — 2 дня',
+    img: 'https://images.unsplash.com/photo-1564894375143-9d90243a4f99?auto=format&fit=crop&w=1200&q=80',
+    desc: 'Озёра, лес и отдых у воды, пешие прогулки и экскурсии по окрестностям.',
+    price: '25 000 ₸'
+  },
+  {
+    title: 'Чунджа — 1 день',
+    img: 'https://images.unsplash.com/photo-1600334121024-6c175fd8c6e6?auto=format&fit=crop&w=1200&q=80',
+    desc: 'Поездка на живописное озеро Чунджа, купание, рыбалка и пикник на берегу.',
+    price: '12 000 ₸'
+  },
+  {
+    title: 'Балхаш — 2 дня',
+    img: 'https://images.unsplash.com/photo-1581009146145-8458d7f04a5b?auto=format&fit=crop&w=1200&q=80',
+    desc: 'Озеро Балхаш, экскурсия на лодке, отдых на пляже и вечерние костры.',
+    price: '30 000 ₸'
+  },
+  {
+    title: 'Чарынский каньон — 1 день',
+    img: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80',
+    desc: 'Прогулка по римскому каньону, фотосессии и пикник в живописной местности.',
+    price: '12 000 ₸'
+  }
+];
+
+const grid = document.getElementById('toursGrid');
+const modalBackdrop = document.getElementById('modalBackdrop');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalPrice = document.getElementById('modalPrice');
+const closeModal = document.getElementById('closeModal');
+
+function renderTours() {
+  tours.forEach((tour, index) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${tour.img}" alt="${tour.title}">
+      <div class="card-body">
+        <h3>${tour.title}</h3>
+        <p>${tour.desc}</p>
+        <div class="pill">${tour.price}</div>
+        <button class="btn" onclick="openModal(${index})">Подробнее</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function openModal(index){
+  const tour = tours[index];
+  modalTitle.textContent = tour.title;
+  modalDesc.textContent = tour.desc;
+  modalPrice.textContent = tour.price;
+  modalBackdrop.style.display = 'flex';
+}
+
+closeModal.onclick = () => modalBackdrop.style.display = 'none';
+modalBackdrop.onclick = e => { if(e.target === modalBackdrop) modalBackdrop.style.display='none'; }
+
+renderTours();
+</script>
+</body>
+</html>
